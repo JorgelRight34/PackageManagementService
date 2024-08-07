@@ -1,0 +1,6 @@
+@PackageManagementService.Server_HostAddress = http://localhost:5221
+
+GET {{PackageManagementService.Server_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
