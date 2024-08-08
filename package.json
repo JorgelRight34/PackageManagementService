@@ -1,0 +1,10 @@
+{
+  "dependencies": {
+    "bootstrap": "^5.3.3",
+    "react-router": "^6.26.0",
+    "react-router-dom": "^6.26.0",
+    "react-strap": "^0.0.1",
+    "react-toastify": "^10.0.5",
+    "reactstrap": "^9.2.2"
+  }
+}
