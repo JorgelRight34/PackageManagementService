@@ -9,7 +9,7 @@ namespace PackageManagementService.Server.Mappers
         {
             return new PackageDto
             {
-                packageId = packageDto.packageId,
+                packageId = $"PKG{packageDto.packageId:D4}",
                 senderName = packageDto.senderName,
                 receiverName = packageDto.receiverName,
                 origin = packageDto.origin,

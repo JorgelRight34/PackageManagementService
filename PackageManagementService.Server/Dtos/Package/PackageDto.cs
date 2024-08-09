@@ -1,9 +1,37 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace PackageManagementService.Server.Dtos.Package
+﻿namespace PackageManagementService.Server.Dtos.Package
 {
     public class PackageDto
     {
+        public string packageId { get; set; }
+        public int packageId { get; set; }
+        public int packageId { get; set; }
+        public int packageId { get; set; }
+        public int packageId { get; set; }
+        public int packageId { get; set; }
+        public int packageId { get; set; }
+        public int packageId { get; set; }
+        public int packageId { get; set; }
+        public int packageId { get; set; }
+        public int packageId { get; set; }
+        public int packageId { get; set; }
+        public int packageId { get; set; }
+        public int packageId { get; set; }
+        public int packageId { get; set; }
+        public int packageId { get; set; }
+        public int packageId { get; set; }
+        public int packageId { get; set; }
+        public int packageId { get; set; }
+        public int packageId { get; set; }
+        public int packageId { get; set; }
+        public int packageId { get; set; }
+        public int packageId { get; set; }
+        public int packageId { get; set; }
+        public int packageId { get; set; }
+        public int packageId { get; set; }
+        public int packageId { get; set; }
+        public int packageId { get; set; }
+        public int packageId { get; set; }
+        public int packageId { get; set; }
         public int packageId { get; set; }
         public string senderName { get; set; }
         public string receiverName { get; set; }

@@ -31,9 +31,9 @@ namespace PackageManagementService.Server.Controllers
 
             var packages = await _packageRepo.GetAllAsync();
 
-            var packagesDto = packages.Select(p => p.ToPackageDto());
+            var packagesList  = packages.Select(p => p.ToPackageDto());
 
-            return Ok(packages);
+            return Ok(packagesList);
         }
 
         // GET api/<PackageController>/5
@@ -67,7 +67,7 @@ namespace PackageManagementService.Server.Controllers
             var packageModel = package.ToPackageFromCreateDto();
             await _packageRepo.CreateAsync(packageModel);
 
-            return CreatedAtAction(nameof(Get), new { id = packageModel.packageId }, packageModel);
+            return CreatedAtAction(nameof(Get), new { id = packageModel.packageId }, packageModel.ToPackageDto());
         }
 
         // PUT api/<PackageController>/5
