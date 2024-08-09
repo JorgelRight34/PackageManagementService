@@ -33,7 +33,7 @@ namespace PackageManagementService.Server.Controllers
         }
 
         // GET api/<TrackingController>/5
-        [HttpGet("{id}")]
+        [HttpGet("{id}:int")]
         public async Task<IActionResult> Get(int id)
         {
             var tracking = await _trackingRepo.GetByIdAsync(id);    
@@ -57,7 +57,7 @@ namespace PackageManagementService.Server.Controllers
         }
 
         // PUT api/<TrackingController>/5
-        [HttpPut("{id}")]
+        [HttpPut("{id}:int")]
         public async Task<IActionResult> Put(int id, [FromBody] UpdateTrackingDto tracking)
         {
             var trackingModel = await _trackingRepo.UpdateAsync(id, tracking);
@@ -71,7 +71,7 @@ namespace PackageManagementService.Server.Controllers
         }
 
         // DELETE api/<TrackingController>/5
-        [HttpDelete("{id}")]
+        [HttpDelete("{id}:int")]
         public async Task<IActionResult> Delete(int id)
         {
             var tracking = await _trackingRepo.DeleteAsync(id);

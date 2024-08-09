@@ -4,7 +4,6 @@ namespace PackageManagementService.Server.Dtos.Package
 {
     public class PackageDto
     {
-        [Key]
         public int packageId { get; set; }
         public string senderName { get; set; }
         public string receiverName { get; set; }

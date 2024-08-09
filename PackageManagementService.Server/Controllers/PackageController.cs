@@ -24,6 +24,11 @@ namespace PackageManagementService.Server.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             var packages = await _packageRepo.GetAllAsync();
 
             var packagesDto = packages.Select(p => p.ToPackageDto());
@@ -32,9 +37,14 @@ namespace PackageManagementService.Server.Controllers
         }
 
         // GET api/<PackageController>/5
-        [HttpGet("{id}")]
+        [HttpGet("{id}:int")]
         public async Task<IActionResult> Get(int id)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             var package = await _packageRepo.GetByIdAsync(id);
 
             if (package == null)
@@ -49,6 +59,11 @@ namespace PackageManagementService.Server.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] CreatePackageDto package)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             var packageModel = package.ToPackageFromCreateDto();
             await _packageRepo.CreateAsync(packageModel);
 
@@ -56,9 +71,14 @@ namespace PackageManagementService.Server.Controllers
         }
 
         // PUT api/<PackageController>/5
-        [HttpPut("{id}")]
+        [HttpPut("{id}:int")]
         public async Task<IActionResult> Put(int id, [FromBody] UpdatePackageDto package)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             var packageModel = await _packageRepo.UpdateAsync(id, package);
 
             if (packageModel == null) 
@@ -70,9 +90,14 @@ namespace PackageManagementService.Server.Controllers
         }
 
         // DELETE api/<PackageController>/5
-        [HttpDelete("{id}")]
+        [HttpDelete("{id}:int")]
         public async Task<IActionResult> Delete(int id)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             var package = await _packageRepo.DeleteAsync(id);
 
             if (package == null)

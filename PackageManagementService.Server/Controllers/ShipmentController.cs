@@ -22,15 +22,25 @@ namespace PackageManagementService.Server.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             var shipments = await _shipmentRepo.GetAllAsync();
             var shipmentsDto = shipments.Select(s => s.ToShipmentDto());
 
             return Ok(shipmentsDto);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id}:int")]
         public async Task<IActionResult> Get(int id)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             var shipment = await _shipmentRepo.GetByIdAsync(id);
 
             if (shipment == null)
@@ -45,15 +55,25 @@ namespace PackageManagementService.Server.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] CreateShipmentDto shipment)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             var shipmentModel = shipment.ToShipmentFromCreateDto();
             await _shipmentRepo.CreateAsync(shipmentModel);
 
             return CreatedAtAction(nameof(Get), new { id = shipmentModel.shipmentId }, shipmentModel);
         }
-
-        [HttpPut("{id}")]
+        
+        [HttpPut("{id}:int")]
         public async Task<IActionResult> Put(int id, [FromBody] UpdateShipmentDto shipment)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             var shipmentModel = await _shipmentRepo.UpdateAsync(id, shipment);
 
             if (shipmentModel == null)
@@ -64,9 +84,14 @@ namespace PackageManagementService.Server.Controllers
             return Ok(shipmentModel.ToShipmentDto());
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("{id}:int")]
         public async Task<IActionResult> Delete(int id)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             var shipment = await _shipmentRepo.DeleteAsync(id);
 
             if (shipment == null)
