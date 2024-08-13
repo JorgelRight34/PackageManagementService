@@ -3,36 +3,6 @@
     public class PackageDto
     {
         public string packageId { get; set; }
-        public int packageId { get; set; }
-        public int packageId { get; set; }
-        public int packageId { get; set; }
-        public int packageId { get; set; }
-        public int packageId { get; set; }
-        public int packageId { get; set; }
-        public int packageId { get; set; }
-        public int packageId { get; set; }
-        public int packageId { get; set; }
-        public int packageId { get; set; }
-        public int packageId { get; set; }
-        public int packageId { get; set; }
-        public int packageId { get; set; }
-        public int packageId { get; set; }
-        public int packageId { get; set; }
-        public int packageId { get; set; }
-        public int packageId { get; set; }
-        public int packageId { get; set; }
-        public int packageId { get; set; }
-        public int packageId { get; set; }
-        public int packageId { get; set; }
-        public int packageId { get; set; }
-        public int packageId { get; set; }
-        public int packageId { get; set; }
-        public int packageId { get; set; }
-        public int packageId { get; set; }
-        public int packageId { get; set; }
-        public int packageId { get; set; }
-        public int packageId { get; set; }
-        public int packageId { get; set; }
         public string senderName { get; set; }
         public string receiverName { get; set; }
         public string origin { get; set; }

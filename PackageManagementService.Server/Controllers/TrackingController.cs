@@ -32,20 +32,6 @@ namespace PackageManagementService.Server.Controllers
             return Ok(trackingsDto);
         }
 
-        // GET api/<TrackingController>/5
-        [HttpGet("{id}:int")]
-        public async Task<IActionResult> Get(int id)
-        {
-            var tracking = await _trackingRepo.GetByIdAsync(id);    
-
-            if (tracking == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(tracking.ToTrackingDto());
-        }
-
         // POST api/<TrackingController>
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] CreateTrackingDto tracking)
@@ -53,7 +39,7 @@ namespace PackageManagementService.Server.Controllers
             var trackingModel = tracking.ToTrackingFromCreateDto();
             await _trackingRepo.CreateAsync(trackingModel);
 
-            return CreatedAtAction(nameof(Get), new { id = trackingModel.trackingId }, trackingModel);
+            return Ok(trackingModel.ToTrackingDto());
         }
 
         // PUT api/<TrackingController>/5
@@ -82,6 +68,15 @@ namespace PackageManagementService.Server.Controllers
             }
 
             return NoContent();
+        }
+
+        // api/<TrackingController>/{packageId}
+        [HttpGet("{packageId}:int")]
+        public IActionResult Tracking(int packageId)
+        {   
+            var trackings = _context.Tracking.Where(t => t.packageId == packageId).ToList();
+            var trackingsDtos = trackings.Select(t => t.ToTrackingDto());
+            return Ok(trackings);
         }
     }
 }
