@@ -21,7 +21,7 @@ namespace PackageManagementService.Server.Mappers
 
         public static Tracking ToTrackingFromCreateDto(this CreateTrackingDto tracking)
         {
-            string numberPartOfId = Regex.Match(tracking.packageId.ToString(), @"\d+").Value;
+            string numberPartOfId = Regex.Match(tracking.packageId, @"\d+").Value;
             return new Tracking
             {
                 packageId = int.Parse(numberPartOfId),

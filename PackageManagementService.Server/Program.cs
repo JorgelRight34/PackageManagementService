@@ -3,6 +3,7 @@ using PackageManagementService.Server.Interfaces;
 using PackageManagementService.Server.Models;
 using PackageManagementService.Server.Repository;
 using ShipmentManagementService.Server.Interfaces;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,7 +12,20 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
+    {
+        Title = "PackageManagementService",
+        Version = "v1",
+        Description = "API para gestión de paquetería que permita administrar paquetes, envíos y seguimiento de entregas."
+    });
+
+    // Ruta al archivo XML
+    var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+    c.IncludeXmlComments(xmlPath);
+});
 
 builder.Services.AddControllers().AddNewtonsoftJson(options =>
 {

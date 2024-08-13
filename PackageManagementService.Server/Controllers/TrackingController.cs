@@ -21,6 +21,12 @@ namespace PackageManagementService.Server.Controllers
             _trackingRepo = trackingRepo;
         }
 
+        /// <summary>
+        /// Obtiene todos los seguimientos
+        /// </summary>
+        /// <returns>Todos los seguimientos</returns>
+        /// <response code="400">Si el JSON está mal formulado.</response>
+        /// <response code="200">Si se retornan los seguimientos.</response>
         // GET: api/<TrackingController>
         [HttpGet]
         public async Task<IActionResult> GetAll()
@@ -32,6 +38,12 @@ namespace PackageManagementService.Server.Controllers
             return Ok(trackingsDto);
         }
 
+        /// <summary>
+        /// Crea un seguimiento
+        /// </summary>
+        /// <returns>El seguimiento creado.</returns>
+        /// <response code="400">Si el JSON está mal formulado.</response>
+        /// <response code="200">Si se crea éxitosamente.</response>
         // POST api/<TrackingController>
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] CreateTrackingDto tracking)
@@ -42,6 +54,13 @@ namespace PackageManagementService.Server.Controllers
             return Ok(trackingModel.ToTrackingDto());
         }
 
+        /// <summary>
+        /// Actualiza un seguimiento correspondiente al ID proporcionado
+        /// </summary>
+        /// <returns>El seguimiento actualizado.</returns>
+        /// <response code="400">Si el JSON está mal formulado.</response>
+        /// <response code="404">Si el seguimiento no se encuentra.</response>
+        /// <response code="200">Si se actualiza el seguimiento.</response>
         // PUT api/<TrackingController>/5
         [HttpPut("{id}:int")]
         public async Task<IActionResult> Put(int id, [FromBody] UpdateTrackingDto tracking)
@@ -56,6 +75,13 @@ namespace PackageManagementService.Server.Controllers
             return Ok(trackingModel.ToTrackingDto());
         }
 
+        /// <summary>
+        /// Elimina un seguimiento correspondiente al ID proporcionado
+        /// </summary>
+        /// <returns>No retorna contenido.</returns>
+        /// <response code="400">Si el JSON está mal formulado.</response>
+        /// <response code="404">Si el seguimiento no se encuentra.</response>
+        /// <response code="200">Si se borra el seguimiento.</response>
         // DELETE api/<TrackingController>/5
         [HttpDelete("{id}:int")]
         public async Task<IActionResult> Delete(int id)
@@ -70,6 +96,13 @@ namespace PackageManagementService.Server.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        /// Obtiene un seguimiento para un paquete en específico
+        /// </summary>
+        /// <returns>El seguimiento correspondiente al ID del paquete proporcionado.</returns>
+        /// <response code="400">Si el JSON está mal formulado.</response>
+        /// <response code="404">Si el seguimiento no se encuentra.</response>
+        /// <response code="200">Si se encuentra el seguimiento.</response>
         // api/<TrackingController>/{packageId}
         [HttpGet("{packageId}:int")]
         public IActionResult Tracking(int packageId)

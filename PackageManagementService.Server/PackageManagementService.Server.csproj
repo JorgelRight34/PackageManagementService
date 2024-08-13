@@ -8,6 +8,8 @@
     <SpaRoot>..\packagemanagementservice.client</SpaRoot>
     <SpaProxyLaunchCommand>npm run dev</SpaProxyLaunchCommand>
     <SpaProxyServerUrl>https://localhost:5173</SpaProxyServerUrl>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <DocumentationFile>C:\Users\pablo\source\repos\PackageManagementService\PackageManagementService.Server\bin\Debug\net8.0\PackageManagementService.Server.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
