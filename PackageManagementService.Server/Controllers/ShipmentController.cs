@@ -48,7 +48,7 @@ namespace PackageManagementService.Server.Controllers
             var shipmentModel = shipment.ToShipmentFromCreateDto();
             await _shipmentRepo.CreateAsync(shipmentModel);
 
-            return CreatedAtAction(nameof(Get), new { id = shipmentModel.shipmentId }, shipmentModel);
+            return CreatedAtAction(nameof(Get), new { id = shipmentModel.shipmentId }, shipmentModel.ToShipmentDto);
         }
 
         [HttpPut("{id}")]

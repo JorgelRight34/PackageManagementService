@@ -1,6 +1,8 @@
 ﻿using PackageManagementService.Server.Dtos.Shipment;
 using PackageManagementService.Server.Models;
 
+using System.Text.RegularExpressions;
+
 namespace PackageManagementService.Server.Mappers
 {
     public static class ShipmentMappers
@@ -9,9 +11,9 @@ namespace PackageManagementService.Server.Mappers
         {
             return new ShipmentDto
             {
-                shipmentId = shipment.shipmentId,
-                packageId = shipment.packageId,
-                package = shipment.package.ToPackageDto(),
+                shipmentId = $"SHIP{shipment.shipmentId:D4}",
+                packageId = $"PKG{shipment.packageId:D4}",
+                // package = shipment.package.ToPackageDto(),
                 departureTime = shipment.departureTime,
                 arrivalTime = shipment.arrivalTime,
                 currentLocation = shipment.currentLocation,
@@ -20,9 +22,10 @@ namespace PackageManagementService.Server.Mappers
            
         public static Shipment ToShipmentFromCreateDto(this CreateShipmentDto shipment) 
         {
+            string numberPartOfId = Regex.Match(shipment.packageId, @"\d+").Value;
             return new Shipment
             {
-                packageId = shipment.packageId,
+                packageId = int.Parse(numberPartOfId), // Extract integer part.
                 departureTime = shipment.departureTime,
                 arrivalTime = shipment.arrivalTime,
                 currentLocation = shipment.currentLocation,

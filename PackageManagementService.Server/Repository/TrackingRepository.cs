@@ -2,6 +2,7 @@
 using PackageManagementService.Server.Dtos.Tracking;
 using PackageManagementService.Server.Interfaces;
 using PackageManagementService.Server.Models;
+using System.Text.RegularExpressions;
 
 namespace PackageManagementService.Server.Repository
 {
@@ -53,7 +54,8 @@ namespace PackageManagementService.Server.Repository
                 return null;
             }
 
-            trackingModel.packageId = trackingDto.packageId;
+            trackingModel.packageId = int.Parse(Regex.Match(trackingDto.packageId, @"\d+").Value);
+            // To avoid error: cannot implicitely turn string into integer.
             trackingModel.status = trackingDto.status;
             trackingModel.location = trackingDto.location;
 

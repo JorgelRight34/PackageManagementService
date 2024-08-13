@@ -53,7 +53,15 @@ export default defineConfig({
             '/api/package': {
                 target: 'https://localhost:7255/',
                 secure: false
-            }
+            },
+            '/api/shipment': {
+                target: 'https://localhost:7255/',
+                secure: false
+            },
+            '/api/tracking': {
+                target: 'https://localhost:7255/',
+                secure: false
+            },
         },
         port: 5173,
         https: {
