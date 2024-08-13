@@ -29,7 +29,7 @@ namespace PackageManagementService.Server.Controllers
 
             var trackingsDto = trackings.Select(t => t.ToTrackingDto());
 
-            return Ok(trackings);
+            return Ok(trackingsDto);
         }
 
         // GET api/<TrackingController>/5

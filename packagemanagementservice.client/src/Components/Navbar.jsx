@@ -29,13 +29,13 @@ const MyNavbar = () => {
               <NavLink href="/">Home</NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href="/paquetes">Pedidos</NavLink>
+              <NavLink href="/paquetes">Paquetes</NavLink>
             </NavItem>
             <NavItem>
               <NavLink href="/envios">Envios</NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href="/envios">Seguimientos</NavLink>
+              <NavLink href="/estados">Estados</NavLink>
             </NavItem>
           </Nav>
         </Collapse>

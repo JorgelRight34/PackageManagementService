@@ -5,9 +5,9 @@ namespace PackageManagementService.Server.Dtos.Tracking
 {
     public class TrackingDto
     {
-        public int trackingId { get; set; }
-        public int packageId { get; set; }
-        public PackageDto package { get; set; }
+        public string trackingId { get; set; }
+        public string packageId { get; set; }
+        // public PackageDto package { get; set; }
         public string status { get; set; }
         public DateTime? timestamp { get; set; } = DateTime.Now;
         public string location { get; set; }

@@ -2,7 +2,7 @@
 {
     public class UpdateTrackingDto
     {
-        public int packageId { get; set; }
+        public string packageId { get; set; }
         public string status { get; set; }
         public string location { get; set; }
     }

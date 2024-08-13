@@ -1,5 +1,6 @@
 ﻿using PackageManagementService.Server.Dtos.Tracking;
 using PackageManagementService.Server.Models;
+using System.Text.RegularExpressions;
 
 namespace PackageManagementService.Server.Mappers
 {
@@ -9,9 +10,9 @@ namespace PackageManagementService.Server.Mappers
         {
             return new TrackingDto
             {
-                trackingId = tracking.trackingId,
-                packageId = tracking.packageId,
-                package = tracking.package.ToPackageDto(),
+                trackingId = $"TRACK{tracking.trackingId:D4}",
+                packageId = $"PKG{tracking.packageId:D4}",
+                //package = tracking.package.ToPackageDto(),
                 status = tracking.status,
                 timestamp = tracking.timestamp,
                 location = tracking.location,
@@ -20,9 +21,10 @@ namespace PackageManagementService.Server.Mappers
 
         public static Tracking ToTrackingFromCreateDto(this CreateTrackingDto tracking)
         {
+            string numberPartOfId = Regex.Match(tracking.packageId, @"\d+").Value;
             return new Tracking
             {
-                packageId = tracking.packageId,
+                packageId = int.Parse(numberPartOfId),
                 status = tracking.status,
                 timestamp = tracking.timestamp,
                 location = tracking.location,
