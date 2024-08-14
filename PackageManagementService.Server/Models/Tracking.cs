@@ -14,7 +14,7 @@ namespace PackageManagementService.Server.Models
         [MaxLength(255)]
         public string status { get; set; }
         [Required]
-        public DateTime? timestamp { get; set; } = DateTime.Now;
+        public DateTime timestamp { get; set; } = DateTime.Now;
         [Required]
         public string location { get; set; }    
     }

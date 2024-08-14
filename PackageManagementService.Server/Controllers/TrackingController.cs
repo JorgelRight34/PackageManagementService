@@ -62,7 +62,7 @@ namespace PackageManagementService.Server.Controllers
         /// <response code="404">Si el seguimiento no se encuentra.</response>
         /// <response code="200">Si se actualiza el seguimiento.</response>
         // PUT api/<TrackingController>/5
-        [HttpPut("{id}:int")]
+        [HttpPut("{id}")]
         public async Task<IActionResult> Put(int id, [FromBody] UpdateTrackingDto tracking)
         {
             var trackingModel = await _trackingRepo.UpdateAsync(id, tracking);
@@ -83,7 +83,7 @@ namespace PackageManagementService.Server.Controllers
         /// <response code="404">Si el seguimiento no se encuentra.</response>
         /// <response code="200">Si se borra el seguimiento.</response>
         // DELETE api/<TrackingController>/5
-        [HttpDelete("{id}:int")]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
             var tracking = await _trackingRepo.DeleteAsync(id);
@@ -104,7 +104,7 @@ namespace PackageManagementService.Server.Controllers
         /// <response code="404">Si el seguimiento no se encuentra.</response>
         /// <response code="200">Si se encuentra el seguimiento.</response>
         // api/<TrackingController>/{packageId}
-        [HttpGet("{packageId}:int")]
+        [HttpGet("{packageId}")]
         public IActionResult Tracking(int packageId)
         {   
             var trackings = _context.Tracking.Where(t => t.packageId == packageId).ToList();

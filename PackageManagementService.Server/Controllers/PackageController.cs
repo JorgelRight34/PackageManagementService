@@ -49,7 +49,7 @@ namespace PackageManagementService.Server.Controllers
         /// <response code="200">Si se encuentra el paquete.</response>
         /// <response code="404">Si el paquete no existe.</response>
         // GET api/<PackageController>/5
-        [HttpGet("{id}:int")]
+        [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
             if (!ModelState.IsValid)
@@ -98,7 +98,7 @@ namespace PackageManagementService.Server.Controllers
         /// <response code="400">Si el JSON está mal formulado</response>
         /// <response code="404">Si el paquete no se encuentra</response>
         // PUT api/<PackageController>/5
-        [HttpPut("{id}:int")]
+        [HttpPut("{id}")]
         public async Task<IActionResult> Put(int id, [FromBody] UpdatePackageDto package)
         {
             if (!ModelState.IsValid)
@@ -125,7 +125,7 @@ namespace PackageManagementService.Server.Controllers
         /// <response code="400">Si el JSON está mal formulado</response>
         /// <response code="404">Si el paquete no se encuentra</response>
         // DELETE api/<PackageController>/5
-        [HttpDelete("{id}:int")]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
             if (!ModelState.IsValid)

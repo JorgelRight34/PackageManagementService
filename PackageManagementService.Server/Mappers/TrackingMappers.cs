@@ -12,9 +12,8 @@ namespace PackageManagementService.Server.Mappers
             {
                 trackingId = $"TRACK{tracking.trackingId:D4}",
                 packageId = $"PKG{tracking.packageId:D4}",
-                //package = tracking.package.ToPackageDto(),
                 status = tracking.status,
-                timestamp = tracking.timestamp,
+                timestamp = tracking.timestamp.ToString("MM-dd-yyyy"),
                 location = tracking.location,
             };
         }

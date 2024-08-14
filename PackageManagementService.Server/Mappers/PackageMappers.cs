@@ -16,7 +16,7 @@ namespace PackageManagementService.Server.Mappers
                 destination = packageDto.destination,
                 weight = packageDto.weight,
                 status = packageDto.status,
-                estimatedDelivery = packageDto.estimatedDelivery
+                estimatedDelivery = packageDto.estimatedDelivery.ToString("MM-dd-yyyy")
         };
         }
 

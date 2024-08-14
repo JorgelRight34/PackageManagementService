@@ -46,7 +46,7 @@ namespace PackageManagementService.Server.Controllers
         /// <response code="400">Si el JSON está mal formulado.</response>
         /// <response code="404">Si el envío no se encuentra.</response>
         /// <response code="200">Si se encuentra el envío.</response>
-        [HttpGet("{id}:int")]
+        [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
             if (!ModelState.IsValid)
@@ -82,7 +82,7 @@ namespace PackageManagementService.Server.Controllers
             var shipmentModel = shipment.ToShipmentFromCreateDto();
             await _shipmentRepo.CreateAsync(shipmentModel);
 
-            return CreatedAtAction(nameof(Get), new { id = shipmentModel.shipmentId }, shipmentModel.ToShipmentDto);
+            return CreatedAtAction(nameof(Get), new { id = shipmentModel.shipmentId }, shipmentModel.ToShipmentDto());
         }
 
         /// <summary>
@@ -92,7 +92,7 @@ namespace PackageManagementService.Server.Controllers
         /// <response code="400">Si el JSON está mal formulado.</response>
         /// <response code="404">Si el envío no se encuentra.</response>
         /// <response code="200">Si se actualiza el envío.</response>
-        [HttpPut("{id}:int")]
+        [HttpPut("{id}")]
         public async Task<IActionResult> Put(int id, [FromBody] UpdateShipmentDto shipment)
         {
             if (!ModelState.IsValid)
@@ -117,7 +117,7 @@ namespace PackageManagementService.Server.Controllers
         /// <response code="400">Si el JSON está mal formulado.</response>
         /// <response code="404">Si el envío no se encuentra.</response>
         /// <response code="200">Si se borra el envío.</response>
-        [HttpDelete("{id}:int")]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
             if (!ModelState.IsValid)

@@ -17,6 +17,6 @@ namespace PackageManagementService.Server.Dtos.Package
         [Required]
         public string status { get; set; }
         [Required]
-        public DateTime? estimatedDelivery { get; set; }
+        public DateTime estimatedDelivery { get; set; }
     }
 }
