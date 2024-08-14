@@ -51,7 +51,7 @@ Ajustar el default connection string en appsetings.json, cambiar donde dice {Ser
 ## Vistas
 
 ### Home
-![Home.](https://myoctocat.com/assets/images/base-octocat.svg)
+![Home.](assets/1.JPG)
 
 Se muestra el nombre de la aplicación "Servicio de Gestión de Paquetes" 
 y se muestra un menú con 3 botones, las cuales llevan a la vista de Paquetes,
@@ -59,26 +59,26 @@ Envíos, y Seguimientos respectivamente. arriba se ve ese mismo menú pero
 en una barra de navegación, incluyendo el home el cual muestra esta misma vista.
 
 ### Paquetes
-![Paquetes.](https://myoctocat.com/assets/images/base-octocat.svg)
+![Paquetes.](assets/2.JPG)
 
 Se muestra una tabla la cual tiene columnas que representan cada atributo de los paquetes.
 Arriba de la tabla hay un botón para crear nuevos paquetes. En la última columna de la tabla 
 están los botones para borrar y editar la fila en cuestión.
 
 #### Añadir nuevo paquete
-![Añadir nuevo paquete.](https://myoctocat.com/assets/images/base-octocat.svg)
+![Añadir nuevo paquete.](assets/3.PNG)
 
 Se muestra un formulario en el cual se le pide al usuario todos los atributos exceptuando
 el id del paquete, para crear un paquete.
 
 #### Editar paquete
-![Añadir nuevo paquete.](https://myoctocat.com/assets/images/base-octocat.svg)
+![Añadir nuevo paquete.](assets/2.PNG)
 
 Se muestra un formulario en el cual se le pide al usuario todos los atributos a editar
 exceptuando el id del paquete, para actualizar el paquete.
 
 ### Envíos
-![Envíos.](https://myoctocat.com/assets/images/base-octocat.svg)
+![Envíos.](assets/5.JPG)
 
 Se muestra una tabla la cual tiene columnas que representan cada atributo de los envíos.
 Arriba de la tabla hay un botón para crear nuevos envíos. En la última columna de la tabla 
@@ -91,23 +91,29 @@ Se muestra un formulario en el cual se le pide al usuario todos los atributos ex
 el id del envío, para crear un envío.
 
 #### Editar envío
-![Añadir nuevo envío.](https://myoctocat.com/assets/images/base-octocat.svg)
+![Añadir nuevo envío.](assets/2.PNG)
 
 Se muestra un formulario en el cual se le pide al usuario todos los atributos a editar
 exceptuando el id del envío, para actualizar el envío.
 
 ### Estados
-![Estados.](https://myoctocat.com/assets/images/base-octocat.svg)
+![Estados.](assets/6.JPG)
 
 Se muestra una tabla la cual tiene columnas que representan cada atributo de los estados.
 Arriba de la tabla hay un botón para crear nuevos estados. En la última columna de la tabla 
 están los botones para borrar y editar la fila en cuestión.
 
 #### Añadir nuevo estado
-![Añadir nuevo estado.](https://myoctocat.com/assets/images/base-octocat.svg)
+![Añadir nuevo estado.](assets/7.JPG)
 
 Se muestra un formulario en el cual se le pide al usuario todos los atributos exceptuando
 el id del estado, para crear un estado.
+
+### Buscar todos las actualizaciones de estado de un paquete.
+![Buscar todos las actualizaciones de estado de un paquete.](assets/8.JPG)
+
+Se puede buscar todas las actualizaciones de estado de un paquete poniendo su indentifacion en el campo del centro, luego dandole al botón.
+Cuando cargue se puede devolver a ver todas las actualizaciones de estado en el otro botón.
 
 #### Editar estado
 ![Añadir nuevo estado.](https://myoctocat.com/assets/images/base-octocat.svg)
