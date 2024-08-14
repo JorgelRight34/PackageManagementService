@@ -19,6 +19,6 @@ namespace PackageManagementService.Server.Models
         public double weight { get; set; }
         [Required]
         public string status { get; set; }
-        public DateTime? estimatedDelivery { get; set; }
+        public DateTime estimatedDelivery { get; set; }
     }
 }

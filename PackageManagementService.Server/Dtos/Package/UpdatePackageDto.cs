@@ -8,6 +8,6 @@
         public string destination { get; set; }
         public double weight { get; set; }
         public string status { get; set; }
-        public DateTime? estimatedDelivery { get; set; }
+        public DateTime estimatedDelivery { get; set; }
     }
 }

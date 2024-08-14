@@ -14,8 +14,8 @@ namespace PackageManagementService.Server.Mappers
                 shipmentId = $"SHIP{shipment.shipmentId:D4}",
                 packageId = $"PKG{shipment.packageId:D4}",
                 // package = shipment.package.ToPackageDto(),
-                departureTime = shipment.departureTime,
-                arrivalTime = shipment.arrivalTime,
+                departureTime = shipment.departureTime.ToString("MM-dd-yyyy"),
+                arrivalTime = shipment.arrivalTime.ToString("MM-dd-yyyy"),
                 currentLocation = shipment.currentLocation,
             };
         }

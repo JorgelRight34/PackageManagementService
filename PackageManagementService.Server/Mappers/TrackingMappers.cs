@@ -12,16 +12,15 @@ namespace PackageManagementService.Server.Mappers
             {
                 trackingId = $"TRACK{tracking.trackingId:D4}",
                 packageId = $"PKG{tracking.packageId:D4}",
-                //package = tracking.package.ToPackageDto(),
                 status = tracking.status,
-                timestamp = tracking.timestamp,
+                timestamp = tracking.timestamp.ToString("MM-dd-yyyy"),
                 location = tracking.location,
             };
         }
 
         public static Tracking ToTrackingFromCreateDto(this CreateTrackingDto tracking)
         {
-            string numberPartOfId = Regex.Match(tracking.packageId.ToString(), @"\d+").Value;
+            string numberPartOfId = Regex.Match(tracking.packageId, @"\d+").Value;
             return new Tracking
             {
                 packageId = int.Parse(numberPartOfId),

@@ -4,7 +4,7 @@
     {
         public string packageId { get; set; }
         public string status { get; set; }
-        public DateTime? timestamp { get; set; } = DateTime.Now;
+        public DateTime timestamp { get; set; } = DateTime.Now;
         public string location { get; set; }
     }
 }

@@ -9,7 +9,7 @@ namespace PackageManagementService.Server.Dtos.Tracking
         public string packageId { get; set; }
         // public PackageDto package { get; set; }
         public string status { get; set; }
-        public DateTime? timestamp { get; set; } = DateTime.Now;
+        public string timestamp { get; set; }
         public string location { get; set; }
     }
 }
