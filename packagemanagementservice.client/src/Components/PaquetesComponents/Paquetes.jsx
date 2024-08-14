@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
 import MyNavbar from '../Navbar.jsx';
+import showNotification from '../../toastNotifications.js';
 
 function Paquetes() {
     const [packages, setPackages] = useState([]);
@@ -70,22 +71,40 @@ function Paquetes() {
         return false;
     };
 
+    const getErrorsFromResponse = (response) => {
+        let err = '';
+        for (var error in response.errors) {
+            if (error == 'package') {
+                continue; // This is a PK error, it doesnt matter for the user.
+            }
+            let errmsg = String(response.errors[error]).split('.')[0]; // To avoid knowing the line where the code failed.
+            err += `${error}: ${errmsg}`;
+        }
+        return err;
+    }
+
     const isFormValid = () => {
         let errorMsg = "";
         let valid = true;
         if (areFieldsEmpty()) {
             errorMsg += "No se permiten campos vacios";
             valid = false;
-        } else if (form.receiverName === form.senderName) {
+        }
+        if (form.receiverName === form.senderName) {
             errorMsg += "El remitente no puede ser también el recibidor.\n";
             valid = false;
-        } else if (form.origin === form.destination) {
+        }
+        if (form.origin === form.destination) {
             errorMsg += "El origen no puede ser igual al destino.";
+            valid = false;
+        }
+        if (form.weight < 0) {
+            errorMsg += "El peso debe ser mayor o igual a 0";
             valid = false;
         }
 
         if (!valid) {
-            alert(errorMsg);
+            showNotification(errorMsg, false);
         }
         return valid;
     };
@@ -112,10 +131,10 @@ function Paquetes() {
             if (response.status === 204) {
                 let newPackages = [...packages];
                 newPackages.splice(index, 1);
-                console.log(newPackages);
+                showNotification(`${pkg.packageId} ha sido eliminado.`, true);
                 setPackages(newPackages);
             } else {
-                alert('Hubo un problema al intentar eliminar este paquete.');
+                showNotification(getErrorsFromResponse(await response.json()), false);
             }
         }
     };
@@ -136,7 +155,6 @@ function Paquetes() {
                 estimatedDelivery: form.estimatedDelivery
             };
 
-            console.log(body);
             const response = await fetch(`api/package/${extractPackageNumber(pkgToEdit.packageId)}`, {
                 method: 'PUT',
                 headers: {
@@ -149,9 +167,9 @@ function Paquetes() {
                 const newPackages = [...packages];
                 newPackages[index] = form; // Swap with the updated values.
                 setPackages(newPackages);
-            
+                showNotification(`${pkgToEdit.packageId} ha sido editado.`, true);
             } else {
-                alert('Hubo un error.');
+                showNotification(getErrorsFromResponse(await response.json()), false);
                 return;
             }
             // Close the dialog.
@@ -179,14 +197,16 @@ function Paquetes() {
                 },
                 body: JSON.stringify(body)
             });
-
+            const reJson = await response.json();
             if (response.status == 201) {
-                let newPackage = await response.json(); // The api returns the new created package.
+                let newPackage = reJson; // The api returns the new created package.
                 setPackages(prev => {
                     return [...prev, newPackage];
                 });
+                showNotification("Paquete creado.", true);
             } else {
-                alert(response.errorMsg);
+                showNotification(getErrorsFromResponse(reJson), false);
+                return;
             }
             clearForm();
             setCreateModal(false);
@@ -411,6 +431,8 @@ function Paquetes() {
             <div className="col-auto">
               <input
                 type="number"
+                min="0"
+                max="100"
                 className="form-control"
                 id="weight"
                 value={form.weight}
@@ -433,8 +455,10 @@ function Paquetes() {
                 id="status"
                 onChange={e =>
                   setForm(prev => ({ ...prev, status: e.target.value }))}
-              >
+                                >
+                <option value='' disabled>----</option>
                 <option value="pending">Pending</option>
+                <option value="in transit">In transit</option>
                 <option value="completed">Completed</option>
               </select>
             </div>

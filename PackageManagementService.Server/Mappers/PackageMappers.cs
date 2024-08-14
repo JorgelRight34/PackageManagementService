@@ -17,7 +17,7 @@ namespace PackageManagementService.Server.Mappers
                 weight = packageDto.weight,
                 status = packageDto.status,
                 estimatedDelivery = packageDto.estimatedDelivery
-        };
+            };
         }
 
         public static Package ToPackageFromCreateDto(this CreatePackageDto packageDto)

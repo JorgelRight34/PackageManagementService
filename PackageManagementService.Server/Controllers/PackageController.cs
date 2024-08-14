@@ -37,7 +37,7 @@ namespace PackageManagementService.Server.Controllers
         }
 
         // GET api/<PackageController>/5
-        [HttpGet("{id}:int")]
+        [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
             if (!ModelState.IsValid)
@@ -71,7 +71,7 @@ namespace PackageManagementService.Server.Controllers
         }
 
         // PUT api/<PackageController>/5
-        [HttpPut("{id}:int")]
+        [HttpPut("{id}")]
         public async Task<IActionResult> Put(int id, [FromBody] UpdatePackageDto package)
         {
             if (!ModelState.IsValid)
@@ -90,7 +90,7 @@ namespace PackageManagementService.Server.Controllers
         }
 
         // DELETE api/<PackageController>/5
-        [HttpDelete("{id}:int")]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
             if (!ModelState.IsValid)

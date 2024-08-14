@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
 import MyNavbar from '../Navbar.jsx';
+import showNotification from '../../toastNotifications.js';
 
 function Envios() {
     const [shipments, setShipments] = useState([]);
@@ -62,13 +63,25 @@ function Envios() {
         return false;
     };
 
+    const getErrorsFromResponse = (response) => {
+        let err = '';
+        for (var error in response.errors) {
+            if (error == 'shipment') {
+                continue; // This is a PK error, it doesnt matter for the user.
+            }
+            let errmsg = String(response.errors[error]).split('.')[0]; // To avoid knowing the line where the code failed.
+            err += `${error}: ${errmsg}`;
+        }
+        return err;
+    }
+
     const isFormValid = () => {
         let errorMsg = "";
         let valid = true;
         
 
         const validateDepartureAndArrival = () => {
-            const datetimePattern = /^\d{4}-\d{2}-\d{2}(T\d{2}:\d{2}:\d{2}\.\d{3})?$/;
+            const datetimePattern = /^\d{4}-\d{2}-\d{2}(T\d{2}:\d{2}:\d{2}(\.\d{3})?)?$/;
             const departure = new Date(form.departureTime);
             const arrival = new Date(form.arrivalTime);
             if (!datetimePattern.test(form.departureTime) || !datetimePattern.test(form.arrivalTime)) {
@@ -88,7 +101,7 @@ function Envios() {
         }
 
         if (!valid) {
-            alert(errorMsg);
+            showNotification(errorMsg, false);
         }
         return valid;
     };
@@ -116,9 +129,10 @@ function Envios() {
             if (response.status === 204) {
                 let newShipments = [...shipments];
                 newShipments.splice(index, 1);
+                showNotification(`${ship.shipmentId} ha sido eliminado`, true);
                 setShipments(newShipments);
             } else {
-                alert('Hubo un problema al intentar eliminar este envio.');
+                showNotification(getErrorsFromResponse(await response.json()), false);
             }
         }
     };
@@ -148,9 +162,9 @@ function Envios() {
                 const newPackages = [...shipments];
                 newPackages[index] = form; // Swap with the updated values.
                 setShipments(newPackages);
-
+                showNotification(`${shipToEdit.shipmentId} ha sido editado.`, true);
             } else {
-                alert('Hubo un error.');
+                showNotification(getErrorsFromResponse(await response.json()), false);
                 return;
             }
             // Close the dialog.
@@ -175,14 +189,16 @@ function Envios() {
                 },
                 body: JSON.stringify(body)
             });
-
+            const reJson = await response.json();
             if (response.status == 201) {
-                let newShipments = await response.json(); // The api returns the new created package.
+                let newShipments = reJson; // The api returns the new created package.
                 setShipments(prev => {
                     return [...prev, newShipments];
                 });
+                showNotification("El envio fue registrado", true);
             } else {
-                alert('Hubo un error.');
+                showNotification(getErrorsFromResponse(reJson), false);
+                return;
             }
             clearForm();
             setCreateModal(false);
@@ -334,7 +350,7 @@ function Envios() {
                                         id="packageId"
                                         onChange={e =>
                                             setForm(prev => ({ ...prev, packageId: e.target.value }))}>
-
+                                        <option value='' disabled>----</option>
                                         {packagesId.current.map(pkg => {
                                             return (
                                                 <option key={pkg} value={pkg}>{pkg}</option>

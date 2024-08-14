@@ -1,9 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import { Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
 import MyNavbar from '../Navbar.jsx';
+import showNotification from '../../toastNotifications.js';
+
 
 function Estados() {
-    const [trackings, setTrackings] = useState([]);
+    const [trackings, setTrackings] = useState([]); // All trackings.
+    const [searchActive, setSearchActive] = useState(false);
 
     const [form, setForm] = useState({
         trackingId: '',
@@ -13,12 +16,30 @@ function Estados() {
         location: '',
     });
 
+    const [searchForm, setSearchForm] = useState(''); // Here will be saved the id of the package to search for.
+
     const [createModalIsOpen, setCreateModal] = useState(false);
     const [editModalIsOpen, setEditModal] = useState(false);
 
     let packagesId = useRef([]);
 
     const api = 'api/tracking';
+
+    const searchTrackings = async () => {
+        const res = await fetch(`${api}/${searchForm}`, {
+            method: 'GET'
+        });
+
+        if (res.status === 200) {
+            const tracks = await res.json()
+            if (tracks) {
+                setTrackings(tracks);
+            } else {
+                showNotification("No hay actualizaciones de estado para este paquete");
+            }
+        }
+        setSearchActive(true);
+    }
 
     const clearForm = () => {
         setForm({
@@ -124,8 +145,10 @@ function Estados() {
                 let newTrackings = [...trackings];
                 newTrackings.splice(index, 1);
                 setTrackings(newTrackings);
+                showNotification(`${track.trackingId} ha sido eliminado.`);
             } else {
                 alert(getErrorsFromResponse(await response.json()));
+                showNotification(getErrorsFromResponse(await response.json()), false);
             }
         }
     };
@@ -155,9 +178,9 @@ function Estados() {
                 const newTrackings = [...trackings];
                 newTrackings[index] = form; // Swap with the updated values.
                 setTrackings(newTrackings);
-
+                showNotification(`${trackToEdit.trackingId} ha sido actualizado.`, true);
             } else {
-                alert(getErrorsFromResponse(await response.json()));
+                showNotification(getErrorsFromResponse(await response.json()), false);
                 return;
             }
             // Close the dialog.
@@ -184,12 +207,13 @@ function Estados() {
             });
             let reJson = await response.json(); // Turn response into JSON.
             if (response.status == 201) {
-                let newTrackings = reJson; // The api returns the new created package.
+                let newTrackings = reJson; // The api returns the new created entity.
                 setTrackings(prev => {
                     return [...prev, newTrackings];
                 });
+                showNotification(`Un estado de actualizacion para ${newTrackings.packageId} ha sido creado.`, true);
             } else {
-                alert(getErrorsFromResponse(reJson));
+                showNotification(getErrorsFromResponse(reJson), false);
                 return;
             }
             clearForm();
@@ -204,6 +228,13 @@ function Estados() {
     };
 
     useEffect(() => {
+        if (searchActive) {
+            return;
+        }
+        // If there's not a search then show all trackings.
+        if (searchForm) {
+            setSearchForm(''); // Empty the search form when search is not active.
+        }
         async function populateTrackings() {
             const response = await fetch(api);
             const data = await response.json();
@@ -219,7 +250,8 @@ function Estados() {
 
         populateTrackings();
         getPackagesId();
-    }, []) // Cuando inicie la pagina agarra los paquetes de la api.
+    }, [searchActive]) // Cuando inicie la pagina agarra los paquetes de la api.
+
 
     return (
         <>
@@ -229,11 +261,40 @@ function Estados() {
                     <h1>Actualizaciones de Estado</h1>
                 </div>
 
+                <div className="container d-flex justify-content-center align-items-center">
+                    <div className="row">
+                        <div className="col-auto">
+                            <input
+                                type="text"
+                                className="form-control"
+                                placeholder="PKGXXXX"
+                                style={{ width: '200px' }}
+                                value={searchForm}
+                                onChange={(e) => setSearchForm(e.target.value)}
+                            />
+                        </div>
+                        <div className="col-auto">
+                            <button className="btn btn-primary" onClick={() => searchTrackings()}>
+                                Buscar estados
+                            </button>
+                        </div>
+                        {searchActive &&
+                            <div className="col-auto">
+                                <button className="btn btn-primary" onClick={() => setSearchActive(false)}>
+                                    Ver todos los estados
+                                </button>
+                            </div>
+                        }
+                    </div>
+                </div>
+
+
                 <div className="container d-flex justify-content-start">
                     <button className="btn btn-secondary" onClick={() => setCreateModal(true)}>
                         Agregar Actualizacion de Estado
                     </button>
                 </div>
+
 
                 <table className="table mt-2">
                     <thead className="table-dark">
@@ -337,7 +398,7 @@ function Estados() {
                                         id="packageId"
                                         onChange={e =>
                                             setForm(prev => ({ ...prev, packageId: e.target.value }))}>
-
+                                        <option value='' disabled>----</option>
                                         {packagesId.current.map(pkg => {
                                             return (
                                                 <option key={pkg} value={pkg}>{pkg}</option>
@@ -353,7 +414,7 @@ function Estados() {
                         <div className="row mb-3 align-items-center">
                             <div className="col-auto">
                                 <label htmlFor="timestamp" className="col-form-label fw-bold">
-                                    Tiempo (YYYY-MM-DDTHH:MM:SS.SSS)
+                                    Tiempo (YYYY-MM-DDTHH:MM:SS:SS)
                                 </label>
                             </div>
                             <div className="col-auto">
@@ -364,7 +425,7 @@ function Estados() {
                                     value={form.timestamp}
                                     onChange={e =>
                                         setForm(prev => ({ ...prev, timestamp: e.target.value }))}
-                                    placeholder="YYYY-MM-DDTHH:MM:SS.SSS"
+                                    placeholder="YYYY-MM-DDTHH:MM:SS:SS"
                                 />
                             </div>
                         </div>
@@ -376,14 +437,18 @@ function Estados() {
                                 </label>
                             </div>
                             <div className="col-auto">
-                                <input
-                                    type="text"
-                                    className="form-control"
-                                    id="currrentLocation"
+                                <select
+                                    className="form-select"
                                     value={form.status}
+                                    id="status"
                                     onChange={e =>
                                         setForm(prev => ({ ...prev, status: e.target.value }))}
-                                />
+                                >
+                                    <option value='' disabled>----</option>
+                                    <option value="pending">Pending</option>
+                                    <option value="in transit">In transit</option>
+                                    <option value="completed">Completed</option>
+                                </select>
                             </div>
                         </div>
 

@@ -4,6 +4,8 @@ using PackageManagementService.Server.Interfaces;
 using PackageManagementService.Server.Mappers;
 using PackageManagementService.Server.Models;
 
+using System.Text.RegularExpressions;
+
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace PackageManagementService.Server.Controllers
@@ -39,13 +41,15 @@ namespace PackageManagementService.Server.Controllers
             var trackingModel = tracking.ToTrackingFromCreateDto();
             await _trackingRepo.CreateAsync(trackingModel);
 
-            return Ok(trackingModel.ToTrackingDto());
+            // Return 201 Created with the created tracking DTO in the response body
+            return Created(string.Empty, trackingModel.ToTrackingDto());
         }
 
         // PUT api/<TrackingController>/5
-        [HttpPut("{id}:int")]
+        [HttpPut("{id}")]
         public async Task<IActionResult> Put(int id, [FromBody] UpdateTrackingDto tracking)
         {
+
             var trackingModel = await _trackingRepo.UpdateAsync(id, tracking);
 
             if (trackingModel == null)
@@ -57,7 +61,7 @@ namespace PackageManagementService.Server.Controllers
         }
 
         // DELETE api/<TrackingController>/5
-        [HttpDelete("{id}:int")]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
             var tracking = await _trackingRepo.DeleteAsync(id);
@@ -71,12 +75,14 @@ namespace PackageManagementService.Server.Controllers
         }
 
         // api/<TrackingController>/{packageId}
-        [HttpGet("{packageId}:int")]
-        public IActionResult Tracking(int packageId)
-        {   
-            var trackings = _context.Tracking.Where(t => t.packageId == packageId).ToList();
+        [HttpGet("{packageId}")]
+        public IActionResult Tracking(string packageId)
+        {
+            int numberPartOfId = int.Parse(Regex.Match(packageId, @"\d+").Value);
+
+            var trackings = _context.Tracking.Where(t => t.packageId == numberPartOfId).ToList();
             var trackingsDtos = trackings.Select(t => t.ToTrackingDto());
-            return Ok(trackings);
+            return Ok(trackingsDtos);
         }
     }
 }

@@ -33,7 +33,7 @@ namespace PackageManagementService.Server.Controllers
             return Ok(shipmentsDto);
         }
 
-        [HttpGet("{id}:int")]
+        [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
             if (!ModelState.IsValid)
@@ -63,10 +63,10 @@ namespace PackageManagementService.Server.Controllers
             var shipmentModel = shipment.ToShipmentFromCreateDto();
             await _shipmentRepo.CreateAsync(shipmentModel);
 
-            return CreatedAtAction(nameof(Get), new { id = shipmentModel.shipmentId }, shipmentModel.ToShipmentDto);
+            return CreatedAtAction(nameof(Get), new { id = shipmentModel.shipmentId }, shipmentModel.ToShipmentDto());
         }
         
-        [HttpPut("{id}:int")]
+        [HttpPut("{id}")]
         public async Task<IActionResult> Put(int id, [FromBody] UpdateShipmentDto shipment)
         {
             if (!ModelState.IsValid)
@@ -84,7 +84,7 @@ namespace PackageManagementService.Server.Controllers
             return Ok(shipmentModel.ToShipmentDto());
         }
 
-        [HttpDelete("{id}:int")]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
             if (!ModelState.IsValid)
