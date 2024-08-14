@@ -66,13 +66,13 @@ Arriba de la tabla hay un botón para crear nuevos paquetes. En la última colum
 están los botones para borrar y editar la fila en cuestión.
 
 #### Añadir nuevo paquete
-![Añadir nuevo paquete.](assets/3.PNG)
+![Añadir nuevo paquete.](assets/new-package.PNG)
 
 Se muestra un formulario en el cual se le pide al usuario todos los atributos exceptuando
 el id del paquete, para crear un paquete.
 
 #### Editar paquete
-![Añadir nuevo paquete.](assets/2.PNG)
+![Añadir nuevo paquete.](assets/edit-package.PNG)
 
 Se muestra un formulario en el cual se le pide al usuario todos los atributos a editar
 exceptuando el id del paquete, para actualizar el paquete.
@@ -85,7 +85,7 @@ Arriba de la tabla hay un botón para crear nuevos envíos. En la última column
 están los botones para borrar y editar la fila en cuestión.
 
 #### Añadir nuevo envío
-![Añadir nuevo envío.](https://myoctocat.com/assets/images/base-octocat.svg)
+![Añadir nuevo envío.](assets/new-shipment.PNG)
 
 Se muestra un formulario en el cual se le pide al usuario todos los atributos exceptuando
 el id del envío, para crear un envío.
@@ -104,7 +104,7 @@ Arriba de la tabla hay un botón para crear nuevos estados. En la última column
 están los botones para borrar y editar la fila en cuestión.
 
 #### Añadir nuevo estado
-![Añadir nuevo estado.](assets/7.JPG)
+![Añadir nuevo estado.](assets/edit-shipment.PNG)
 
 Se muestra un formulario en el cual se le pide al usuario todos los atributos exceptuando
 el id del estado, para crear un estado.
@@ -116,7 +116,7 @@ Se puede buscar todas las actualizaciones de estado de un paquete poniendo su in
 Cuando cargue se puede devolver a ver todas las actualizaciones de estado en el otro botón.
 
 #### Editar estado
-![Añadir nuevo estado.](https://myoctocat.com/assets/images/base-octocat.svg)
+![Añadir nuevo estado.](assets/edit-tracking.PNG)
 
 Se muestra un formulario en el cual se le pide al usuario todos los atributos a editar
 exceptuando el id del estado, para actualizar el estado.
