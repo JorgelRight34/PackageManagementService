@@ -59,7 +59,7 @@ Envíos, y Seguimientos respectivamente. arriba se ve ese mismo menú pero
 en una barra de navegación, incluyendo el home el cual muestra esta misma vista.
 
 ### Paquetes
-![Paquetes.](assets/2.PNG)
+![Paquetes.](assets/2.JPG)
 
 Se muestra una tabla la cual tiene columnas que representan cada atributo de los paquetes.
 Arriba de la tabla hay un botón para crear nuevos paquetes. En la última columna de la tabla 
@@ -78,7 +78,7 @@ Se muestra un formulario en el cual se le pide al usuario todos los atributos a 
 exceptuando el id del paquete, para actualizar el paquete.
 
 ### Envíos
-![Envíos.](assets/5.PNG)
+![Envíos.](assets/5.JPG)
 
 Se muestra una tabla la cual tiene columnas que representan cada atributo de los envíos.
 Arriba de la tabla hay un botón para crear nuevos envíos. En la última columna de la tabla 
@@ -97,17 +97,23 @@ Se muestra un formulario en el cual se le pide al usuario todos los atributos a 
 exceptuando el id del envío, para actualizar el envío.
 
 ### Estados
-![Estados.](assets/6.PNG)
+![Estados.](assets/6.JPG)
 
 Se muestra una tabla la cual tiene columnas que representan cada atributo de los estados.
 Arriba de la tabla hay un botón para crear nuevos estados. En la última columna de la tabla 
 están los botones para borrar y editar la fila en cuestión.
 
 #### Añadir nuevo estado
-![Añadir nuevo estado.](assets/7.PNG)
+![Añadir nuevo estado.](assets/7.JPG)
 
 Se muestra un formulario en el cual se le pide al usuario todos los atributos exceptuando
 el id del estado, para crear un estado.
+
+### Buscar todos las actualizaciones de estado de un paquete.
+![Buscar todos las actualizaciones de estado de un paquete.](assets/8.JPG)
+
+Se puede buscar todas las actualizaciones de estado de un paquete poniendo su indentifacion en el campo del centro, luego dandole al botón.
+Cuando cargue se puede devolver a ver todas las actualizaciones de estado en el otro botón.
 
 #### Editar estado
 ![Añadir nuevo estado.](https://myoctocat.com/assets/images/base-octocat.svg)
