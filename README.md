@@ -91,7 +91,7 @@ Se muestra un formulario en el cual se le pide al usuario todos los atributos ex
 el id del envío, para crear un envío.
 
 #### Editar envío
-![Añadir nuevo envío.](assets/2.png)
+![Añadir nuevo envío.](assets/edit-shipment.png)
 
 Se muestra un formulario en el cual se le pide al usuario todos los atributos a editar
 exceptuando el id del envío, para actualizar el envío.
