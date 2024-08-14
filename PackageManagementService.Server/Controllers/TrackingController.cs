@@ -2,6 +2,7 @@
 using PackageManagementService.Server.Dtos.Tracking;
 using PackageManagementService.Server.Interfaces;
 using PackageManagementService.Server.Mappers;
+using PackageManagementService.Server.Migrations;
 using PackageManagementService.Server.Models;
 
 using System.Text.RegularExpressions;
@@ -109,11 +110,33 @@ namespace PackageManagementService.Server.Controllers
         /// <response code="200">Si se encuentra el seguimiento.</response>
         // api/<TrackingController>/{packageId}
         [HttpGet("{packageId}")]
-        public IActionResult Tracking(int packageId)
-        {   
-            var trackings = _context.Tracking.Where(t => t.packageId == packageId).ToList();
-            var trackingsDtos = trackings.Select(t => t.ToTrackingDto());
-            return Ok(trackingsDtos);
+        public IActionResult Tracking(string packageId)
+        {
+            Regex regex = new Regex(@"PKG(\d{3})");
+            Match match = regex.Match(packageId);
+            int id;
+
+            if (match.Success)
+            {
+                // Captura los tres dígitos encontrados en el grupo de captura
+                string numberString = match.Groups[1].Value;
+
+                // Intenta convertir la cadena a un entero
+                if (int.TryParse(numberString, out id))
+                {
+                    var trackings = _context.Tracking.Where(t => t.packageId == id).ToList();
+                    var trackingsDtos = trackings.Select(t => t.ToTrackingDto());
+                    return Ok(trackingsDtos);
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            } else
+            {
+                return BadRequest();
+            }
+        
         }
     }
 }
